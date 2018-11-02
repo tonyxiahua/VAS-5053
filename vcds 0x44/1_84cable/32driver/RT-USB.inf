@@ -1,0 +1,84 @@
+[Version]
+Signature="$Windows NT$"
+DriverPackageType=PlugAndPlay
+DriverPackageDisplayName=%DESC%
+Class=USB
+ClassGUID={36fc9e60-c465-11cf-8056-444553540000}
+Provider=%RossTech%
+CatalogFile=RT-USB.CAT
+DriverVer=06/16/2010,2.06.02
+
+[SourceDisksNames]
+1=%DriversDisk%,,,
+
+[SourceDisksFiles]
+RT-USB.SYS = 1
+RT-USB.DLL = 1
+
+[DestinationDirs]
+RT-USB.NT.Copy = 10,system32\drivers
+RT-USB.NT.Copy2 = 10,system32
+
+[Manufacturer]
+%RossTech%=RossTechHw
+
+[RossTechHw]
+%USB\VID_0403&PID_FA20.DeviceDesc%=RT-USB,USB\VID_0403&PID_FA20
+%USB\VID_0403&PID_FA23.DeviceDesc%=RT-USB,USB\VID_0403&PID_FA23
+%USB\VID_0403&PID_FA24.DeviceDesc%=RT-USB,USB\VID_0403&PID_FA24
+%USB\VID_0403&PID_FA25.DeviceDesc%=RT-USB,USB\VID_0403&PID_FA25
+%USB\VID_0403&PID_FA30.DeviceDesc%=RT-USB,USB\VID_0403&PID_FA30
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[RT-USB.NT]
+CopyFiles=RT-USB.NT.Copy,RT-USB.NT.Copy2
+AddReg=RT-USB.NT.AddReg
+
+[RT-USB.NT.HW]
+AddReg=RT-USB.NT.HW.AddReg
+
+[RT-USB.NT.HW.AddReg]
+HKR,,"ConfigData",0x00010001,0
+
+[RT-USB.NT.Services]
+AddService = RT-USB, 0x00000002, RT-USB.NT.AddService
+
+
+[RT-USB.NT.AddService]
+DisplayName = %SvcDesc%
+ServiceType = 1 ; SERVICE_KERNEL_DRIVER
+StartType = 3 ; SERVICE_DEMAND_START
+ErrorControl = 1 ; SERVICE_ERROR_NORMAL
+ServiceBinary = %10%\system32\drivers\RT-USB.SYS
+LoadOrderGroup = Base
+AddReg = RT-USB.NT.AddService.AddReg
+
+[RT-USB.NT.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,RT-USB.SYS
+
+[RT-USB.NT.AddService.AddReg]
+;HKR,Parameters,"LocIds",1,31,00,00,00,32,00,00,00,00
+;HKR,Parameters,"RetryResetCount",0x10001,50
+
+
+[RT-USB.NT.Copy]
+RT-USB.SYS
+
+[RT-USB.NT.Copy2]
+RT-USB.DLL
+
+[Strings]
+RossTech="Ross-Tech"
+DESC="USB Driver Package"
+DriversDisk="The folder where you installed the Ross-Tech software"
+USB\VID_0403&PID_FA20.DeviceDesc="Ross-Tech HEX or KEY USB Interface"
+USB\VID_0403&PID_FA23.DeviceDesc="Ross-Tech Micro-CAN Interface"
+USB\VID_0403&PID_FA24.DeviceDesc="Ross-Tech Direct USB Interface"
+USB\VID_0403&PID_FA25.DeviceDesc="Ross-Tech USB Converter"
+USB\VID_0403&PID_FA30.DeviceDesc="Ross-Tech Direct  Interface"
+SvcDesc="Ross-Tech USB driver"
+ClassName="USB"
+

@@ -1,0 +1,10 @@
+upa programming vcds 0X44 cable fdi bl
+connect upa to atmega162 like in pic @upa to vcds@
+connect vcds interface to external 12v power to obd
+atmega162 select chip erase
+programm eepromavr.hex
+programm Flash1.96_HW_0x44.hex
+programm fuse bits
+programm lock bits
+disconect upa and program ftdi with mprog 3.5 file ftdi_mprogbl.ept
+test interface
